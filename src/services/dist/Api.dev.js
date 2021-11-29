@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
 var _jsCookie = _interopRequireDefault(require("js-cookie"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,7 +27,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-var API = _axios["default"].create({
+var API = _axios.default.create({
   baseURL: 'https://localhost:3000'
 });
 
@@ -38,10 +38,10 @@ API.interceptors.request.use(function (_ref) {
   return _objectSpread({}, config, {
     headers: _objectSpread({}, headers, {
       'Content-Type': 'application/json',
-      'Authorization': "Bearer   ".concat(headers.Authorization || _jsCookie["default"].get('token'))
+      'Authorization': "Bearer   ".concat(headers.Authorization || _jsCookie.default.get('token'))
     })
   });
-});
+}); // eslint-disable-next-line no-unused-vars
 
 var handleCatchError = function handleCatchError(error) {
   if (error.response) {
@@ -71,10 +71,19 @@ function () {
     _classCallCheck(this, APIManager);
   }
 
-  _createClass(APIManager, null, [{
+  _createClass(APIManager, [{
+    key: "handleJwt",
+    value: function handleJwt(response) {
+      if (response.headers.authorization) {
+        var jwt = response.headers.authorization.split(" ")[1];
+
+        _jsCookie.default.set('token', jwt);
+      }
+    }
+  }], [{
     key: "registerUser",
     value: function registerUser(email, password, passwordConfirmation, username) {
-      var response, jwt;
+      var response;
       return regeneratorRuntime.async(function registerUser$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
@@ -92,13 +101,7 @@ function () {
 
             case 2:
               response = _context.sent;
-
-              if (response.headers.authorization) {
-                jwt = response.headers.authorization.split(" ")[1];
-
-                _jsCookie["default"].set('token', jwt);
-              }
-
+              this.handleJwt(response);
               return _context.abrupt("return", _objectSpread({}, response.data, {
                 status: response.status
               }));
@@ -108,6 +111,63 @@ function () {
               return _context.stop();
           }
         }
+      }, null, this);
+    }
+  }, {
+    key: "signInUser",
+    value: function signInUser(email, password) {
+      var response;
+      return regeneratorRuntime.async(function signInUser$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return regeneratorRuntime.awrap(API.post('/users/sign_in', {
+                user: {
+                  email: email,
+                  password: password
+                }
+              }));
+
+            case 2:
+              response = _context2.sent;
+              this.handleJwt(response);
+              return _context2.abrupt("return", _objectSpread({}, response.data, {
+                status: response.status
+              }));
+
+            case 5:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, null, this);
+    }
+  }, {
+    key: "signOutUser",
+    value: function signOutUser() {
+      var response;
+      return regeneratorRuntime.async(function signOutUser$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return regeneratorRuntime.awrap(API.delete('/users/sign_out'));
+
+            case 2:
+              response = _context3.sent;
+
+              _jsCookie.default.remove("token");
+
+              return _context3.abrupt("return", _objectSpread({}, response.data, {
+                status: response.status
+              }));
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
       });
     }
   }]);
@@ -115,4 +175,4 @@ function () {
   return APIManager;
 }();
 
-exports["default"] = APIManager;
+exports.default = APIManager;

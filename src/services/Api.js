@@ -12,6 +12,7 @@ API.interceptors.request.use(({ headers, ...config }) => ({
     },
 }));
 
+// eslint-disable-next-line no-unused-vars
 const handleCatchError = (error) => {
   if (error.response) {
     console.log(error)
@@ -39,12 +40,29 @@ export default class APIManager {
       { user: 
         {email, password, password_confirmation: passwordConfirmation, username, admin: true} 
       });
+    this.handleJwt(response)
+    return {...response.data, status: response.status};
+  }
+
+  static async signInUser(email, password) {
+    const response = await API.post('/users/sign_in',
+      { user: 
+        {email, password}
+      });
+    this.handleJwt(response)
+    return {...response.data, status: response.status};
+  }
+
+  static async signOutUser() {
+    const response = await API.delete('/users/sign_out')
+    Cookies.remove("token")
+    return {...response.data, status: response.status};
+  }
+
+  handleJwt(response) {
     if (response.headers.authorization) {
       const jwt = response.headers.authorization.split(" ")[1]
       Cookies.set('token', jwt)
     }
-    return {...response.data, status: response.status};
   }
-
- 
 }
