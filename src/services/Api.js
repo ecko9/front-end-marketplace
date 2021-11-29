@@ -35,7 +35,7 @@ const handleCatchError = (error) => {
 export default class APIManager {
     
   static async registerUser(email, password, password_confirmation, username) {
-    const response = await API.post('/auth/register', { email, password, password_confirmation, username });
+    const response = await API.post('/user', { email, password, password_confirmation, username, admin: false });
     if (response.headers.authorization) {
       const jwt = response.headers.authorization.split(" ")[1]
       Cookies.set('token', jwt)

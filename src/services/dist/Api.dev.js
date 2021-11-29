@@ -80,11 +80,12 @@ function () {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return regeneratorRuntime.awrap(API.post('/auth/register', {
+              return regeneratorRuntime.awrap(API.post('/user', {
                 email: email,
                 password: password,
                 password_confirmation: password_confirmation,
-                username: username
+                username: username,
+                admin: false
               }));
 
             case 2:
