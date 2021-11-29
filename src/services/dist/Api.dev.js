@@ -3,13 +3,13 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _axios = _interopRequireDefault(require("axios"));
 
 var _jsCookie = _interopRequireDefault(require("js-cookie"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -27,7 +27,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
-var API = _axios.default.create({
+var API = _axios["default"].create({
   baseURL: 'https://localhost:3000'
 });
 
@@ -38,7 +38,7 @@ API.interceptors.request.use(function (_ref) {
   return _objectSpread({}, config, {
     headers: _objectSpread({}, headers, {
       'Content-Type': 'application/json',
-      'Authorization': "Bearer   ".concat(headers.Authorization || _jsCookie.default.get('token'))
+      'Authorization': "Bearer   ".concat(headers.Authorization || _jsCookie["default"].get('token'))
     })
   });
 });
@@ -73,19 +73,21 @@ function () {
 
   _createClass(APIManager, null, [{
     key: "registerUser",
-    value: function registerUser(email, password, password_confirmation, username) {
+    value: function registerUser(email, password, passwordConfirmation, username) {
       var response, jwt;
       return regeneratorRuntime.async(function registerUser$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return regeneratorRuntime.awrap(API.post('/user', {
-                email: email,
-                password: password,
-                password_confirmation: password_confirmation,
-                username: username,
-                admin: false
+              return regeneratorRuntime.awrap(API.post('/users', {
+                user: {
+                  email: email,
+                  password: password,
+                  password_confirmation: passwordConfirmation,
+                  username: username,
+                  admin: true
+                }
               }));
 
             case 2:
@@ -94,7 +96,7 @@ function () {
               if (response.headers.authorization) {
                 jwt = response.headers.authorization.split(" ")[1];
 
-                _jsCookie.default.set('token', jwt);
+                _jsCookie["default"].set('token', jwt);
               }
 
               return _context.abrupt("return", _objectSpread({}, response.data, {
@@ -113,4 +115,4 @@ function () {
   return APIManager;
 }();
 
-exports.default = APIManager;
+exports["default"] = APIManager;
