@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-const API = axios.create({ baseURL: 'https://jsonplaceholder.typicode.com' });
+const API = axios.create({ baseURL: 'https://localhost:3000' });
 
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
@@ -34,15 +34,13 @@ const handleCatchError = (error) => {
 
 export default class APIManager {
     
-  static async registerUser(email, password) {
-      const response = await API.post('/auth/register', { email, password });
-      return response.data;
-  }
-
-  static async fetchPosts(id) {
-    const response = await API.get(`/posts/${id}`)
-                              .catch(error => handleCatchError(error))
-    if(response) return response.data
+  static async registerUser(email, password, password_confirmation, username) {
+    const response = await API.post('/auth/register', { email, password, password_confirmation, username });
+    if (response.headers.authorization) {
+      const jwt = response.headers.authorization.split(" ")[1]
+      Cookies.set('token', jwt)
+    }
+    return {...response.data, status: response.status};
   }
 
  
