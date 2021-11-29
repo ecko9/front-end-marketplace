@@ -18,6 +18,8 @@ const RegisterForm = () => {
     response.status = 200 ? 
       dispatch(fetchUserRegisterSuccess(response.user)) :
       dispatch(fetchUserError(response.error))
+    console.log("LA REPONSE EST =>", response)
+
   }
 
   return (

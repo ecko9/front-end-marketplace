@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-const API = axios.create({ baseURL: 'https://localhost:3000' });
+const API = axios.create({ baseURL: 'http://localhost:3000' });
 
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
@@ -33,6 +33,13 @@ const handleCatchError = (error) => {
   console.log(error.config);
 }
 
+const handleJwt = (response) => {
+  if (response.headers.authorization) {
+    const jwt = response.headers.authorization.split(" ")[1]
+    Cookies.set('token', jwt)
+  }
+}
+
 export default class APIManager {
     
   static async registerUser(email, password, passwordConfirmation, username) {
@@ -40,7 +47,7 @@ export default class APIManager {
       { user: 
         {email, password, password_confirmation: passwordConfirmation, username, admin: true} 
       });
-    this.handleJwt(response)
+    handleJwt(response)
     return {...response.data, status: response.status};
   }
 
@@ -49,7 +56,7 @@ export default class APIManager {
       { user: 
         {email, password}
       });
-    this.handleJwt(response)
+    handleJwt(response)
     return {...response.data, status: response.status};
   }
 
@@ -59,10 +66,5 @@ export default class APIManager {
     return {...response.data, status: response.status};
   }
 
-  handleJwt(response) {
-    if (response.headers.authorization) {
-      const jwt = response.headers.authorization.split(" ")[1]
-      Cookies.set('token', jwt)
-    }
-  }
+  
 }

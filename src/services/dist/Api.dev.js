@@ -28,7 +28,7 @@ function _objectWithoutProperties(source, excluded) { if (source == null) return
 function _objectWithoutPropertiesLoose(source, excluded) { if (source == null) return {}; var target = {}; var sourceKeys = Object.keys(source); var key, i; for (i = 0; i < sourceKeys.length; i++) { key = sourceKeys[i]; if (excluded.indexOf(key) >= 0) continue; target[key] = source[key]; } return target; }
 
 var API = _axios.default.create({
-  baseURL: 'https://localhost:3000'
+  baseURL: 'http://localhost:3000'
 });
 
 API.interceptors.request.use(function (_ref) {
@@ -64,6 +64,14 @@ var handleCatchError = function handleCatchError(error) {
   console.log(error.config);
 };
 
+var handleJwt = function handleJwt(response) {
+  if (response.headers.authorization) {
+    var jwt = response.headers.authorization.split(" ")[1];
+
+    _jsCookie.default.set('token', jwt);
+  }
+};
+
 var APIManager =
 /*#__PURE__*/
 function () {
@@ -71,16 +79,7 @@ function () {
     _classCallCheck(this, APIManager);
   }
 
-  _createClass(APIManager, [{
-    key: "handleJwt",
-    value: function handleJwt(response) {
-      if (response.headers.authorization) {
-        var jwt = response.headers.authorization.split(" ")[1];
-
-        _jsCookie.default.set('token', jwt);
-      }
-    }
-  }], [{
+  _createClass(APIManager, null, [{
     key: "registerUser",
     value: function registerUser(email, password, passwordConfirmation, username) {
       var response;
@@ -101,7 +100,7 @@ function () {
 
             case 2:
               response = _context.sent;
-              this.handleJwt(response);
+              handleJwt(response);
               return _context.abrupt("return", _objectSpread({}, response.data, {
                 status: response.status
               }));
@@ -111,7 +110,7 @@ function () {
               return _context.stop();
           }
         }
-      }, null, this);
+      });
     }
   }, {
     key: "signInUser",
@@ -131,7 +130,7 @@ function () {
 
             case 2:
               response = _context2.sent;
-              this.handleJwt(response);
+              handleJwt(response);
               return _context2.abrupt("return", _objectSpread({}, response.data, {
                 status: response.status
               }));
@@ -141,7 +140,7 @@ function () {
               return _context2.stop();
           }
         }
-      }, null, this);
+      });
     }
   }, {
     key: "signOutUser",
