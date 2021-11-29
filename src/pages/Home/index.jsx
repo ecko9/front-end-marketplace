@@ -1,11 +1,11 @@
+import RegisterForm from 'components/forms/LoginForms/RegisterForm'
 import React from 'react'
-import Base from 'components/Base'
        
 const Home = () => {
 
   return (
     <div className=''>
-      <Base />
+      <RegisterForm />
     </div>
   )
 }
