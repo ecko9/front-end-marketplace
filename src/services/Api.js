@@ -64,6 +64,12 @@ export default class APIManager {
     console.log(response)
     return {...response.data, status: response.status};
   }
+  static async signInUserJwt(){
+    const response = await API.post('/users/sign_in')
+    handleJwt(response)
+    console.log(response)
+    return response.data
+  }
 
   static async signOutUser() {
     const response = await API.delete('/users/sign_out')
@@ -84,4 +90,5 @@ export default class APIManager {
     })
     return { ...response.data, status: response.status };
   }
+
 }
