@@ -1,11 +1,16 @@
 import React from 'react'
+import Box from '@mui/material/Box'
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
        
 const Home = () => {
 
   return (
-    <div className='Home'>
-      <h2>ACCUEIL DU SITE </h2>
-    </div>
+    <Box>
+        <Typography variant="h2" component="div"  sx={{ mr: 4 } }>
+          Bienvenue sur Immobills, venez vendre vos biens!
+        </Typography>
+    </Box>
   )
 }
     
