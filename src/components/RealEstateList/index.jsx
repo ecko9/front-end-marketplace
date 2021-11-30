@@ -10,13 +10,14 @@ const RealEstateList = () => {
   const HandleList = async () => {
     const response = await APIManager.showRealEstateList()
     console.log(response)
-    setList(response.data)
+    setList(response.realEstate)
   }
 
   useEffect (() => {
     HandleList()
   },
-  [])
+  []
+  )
 
   return (
     <>
