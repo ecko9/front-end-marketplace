@@ -1,16 +1,19 @@
-import { FETCH_USER_REQUEST, FETCH_USER_ERROR,
+import {
+  FETCH_USER_REQUEST, FETCH_USER_ERROR,
   FETCH_USER_REGISTER_SUCCESS, FETCH_USER_SIGN_IN_SUCCESS,
-  FETCH_USER_SIGN_OUT_SUCCESS, FETCH_USER_UPDATE_SUCCESS
-  } from "./style";
+  FETCH_USER_SIGN_OUT_SUCCESS, FETCH_USER_UPDATE_SUCCESS,
+  FETCH_USER_AVATAR_SUCCESS
+} from "./style";
 
 const initialState = {
   loading: false,
   user: {},
-  error: ''
+  error: '',
+  avatar: null
 }
 
 const userReducer = (state = initialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case FETCH_USER_REQUEST:
       return {
         ...state,
@@ -26,27 +29,33 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        user: action.user,        
+        user: action.user,
       }
     case FETCH_USER_SIGN_IN_SUCCESS:
       return {
         ...state,
         loading: false,
-        user: action.user,        
+        user: action.user,
       }
     case FETCH_USER_UPDATE_SUCCESS:
       return {
         ...state,
         loading: false,
-        user: action.user,        
+        user: action.user,
       }
     case FETCH_USER_SIGN_OUT_SUCCESS:
       return {
         ...state,
         loading: false,
-        user: {},        
+        user: {},
       }
-    default: 
+    case FETCH_USER_AVATAR_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        avatar: action.avatar
+      }
+    default:
       return state;
   }
 }
