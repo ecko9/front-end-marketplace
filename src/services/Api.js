@@ -66,5 +66,8 @@ export default class APIManager {
     return {...response.data, status: response.status};
   }
 
-  
+  static async showRealEstateList() {
+    const response = await API.get('/real_estates')
+    return {...response.data, status: response.status};
+  }
 }
