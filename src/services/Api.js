@@ -46,7 +46,7 @@ export default class APIManager {
     const response = await API.post('/users',
       {
         user:
-          { email, password, password_confirmation: passwordConfirmation, username, admin: true }
+          { email, password, password_confirmation: passwordConfirmation, username, admin: false }
       });
     handleJwt(response)
     return { ...response.data, status: response.status };
