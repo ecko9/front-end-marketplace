@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-const API = axios.create({ baseURL: 'https://jsonplaceholder.typicode.com' });
+const API = axios.create({ baseURL: 'http://localhost:3000' });
 
 API.interceptors.request.use(({ headers, ...config }) => ({
     ...config,
@@ -12,6 +12,7 @@ API.interceptors.request.use(({ headers, ...config }) => ({
     },
 }));
 
+// eslint-disable-next-line no-unused-vars
 const handleCatchError = (error) => {
   if (error.response) {
     console.log(error)
@@ -32,18 +33,38 @@ const handleCatchError = (error) => {
   console.log(error.config);
 }
 
+const handleJwt = (response) => {
+  if (response.headers.authorization) {
+    const jwt = response.headers.authorization.split(" ")[1]
+    Cookies.set('token', jwt)
+  }
+}
+
 export default class APIManager {
     
-  static async registerUser(email, password) {
-      const response = await API.post('/auth/register', { email, password });
-      return response.data;
+  static async registerUser(email, password, passwordConfirmation, username) {
+    const response = await API.post('/users', 
+      { user: 
+        {email, password, password_confirmation: passwordConfirmation, username, admin: true} 
+      });
+    handleJwt(response)
+    return {...response.data, status: response.status};
   }
 
-  static async fetchPosts(id) {
-    const response = await API.get(`/posts/${id}`)
-                              .catch(error => handleCatchError(error))
-    if(response) return response.data
+  static async signInUser(email, password) {
+    const response = await API.post('/users/sign_in',
+      { user: 
+        {email, password}
+      });
+    handleJwt(response)
+    return {...response.data, status: response.status};
   }
 
- 
+  static async signOutUser() {
+    const response = await API.delete('/users/sign_out')
+    Cookies.remove("token")
+    return {...response.data, status: response.status};
+  }
+
+  
 }

@@ -2,12 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'style/index.scss';
 import App from './App';
-import ThemeCtxProvider from 'context/ThemeCtx'
+import store from 'store/store'
+import {Provider} from 'react-redux'
+
 ReactDOM.render(
   <React.StrictMode>
-    <ThemeCtxProvider>
+    <Provider store={store}>
       <App />
-    </ThemeCtxProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
