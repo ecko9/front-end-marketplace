@@ -31,7 +31,7 @@ const Login = () => {
       <Button variant="text" color="primary" disableRipple
         onClick={toggleIsRegistered}
       >
-        {isRegistered ? "Already subscribed ?" : "Not subscribed yet ?"}
+        {isRegistered ? " Not subscribed yet ?" : "Already subscribed ?"}
       </Button>
     </Box>
   )
