@@ -1,4 +1,5 @@
 import React from 'react'
+import RealEstateList from 'components/RealEstateList'
 import Box from '@mui/material/Box'
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
