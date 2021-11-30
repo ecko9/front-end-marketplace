@@ -4,12 +4,12 @@ import Cookies from 'js-cookie'
 const API = axios.create({ baseURL: 'http://localhost:3000' });
 
 API.interceptors.request.use(({ headers, ...config }) => ({
-    ...config,
-    headers: {
-        ...headers,
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer   ${headers.Authorization ||  Cookies.get('token')}`,
-    },
+  ...config,
+  headers: {
+    ...headers,
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer   ${headers.Authorization || Cookies.get('token')}`,
+  },
 }));
 
 // eslint-disable-next-line no-unused-vars
@@ -41,30 +41,39 @@ const handleJwt = (response) => {
 }
 
 export default class APIManager {
-    
+
   static async registerUser(email, password, passwordConfirmation, username) {
-    const response = await API.post('/users', 
-      { user: 
-        {email, password, password_confirmation: passwordConfirmation, username, admin: true} 
+    const response = await API.post('/users',
+      {
+        user:
+          { email, password, password_confirmation: passwordConfirmation, username, admin: true }
       });
     handleJwt(response)
-    return {...response.data, status: response.status};
+    return { ...response.data, status: response.status };
   }
 
   static async signInUser(email, password) {
     const response = await API.post('/users/sign_in',
-      { user: 
-        {email, password}
+      {
+        user:
+          { email, password }
       });
     handleJwt(response)
-    return {...response.data, status: response.status};
+    return { ...response.data, status: response.status };
   }
 
   static async signOutUser() {
     const response = await API.delete('/users/sign_out')
     Cookies.remove("token")
-    return {...response.data, status: response.status};
+    return { ...response.data, status: response.status };
   }
 
-  
+  static async uploadAvatar(formData) {
+    const response = await axios({
+      url: `http://localhost:3000/avatars`,
+      method: 'post',
+      data: formData
+    })
+    return { ...response.data, status: response.status };
+  }
 }
