@@ -30,7 +30,7 @@ const RealEstateCard = (props) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button href="/" size="small">Show</Button>
+            <Button href={`/RealEstate/${props.realEstate.id}`} size="small">Show</Button>
             <Button size="small">Learn More</Button>
           </CardActions>
         </Card>
