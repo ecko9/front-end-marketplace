@@ -9,8 +9,8 @@ import { fetchUserAvatarSuccess, fetchUserError, fetchUserRequest } from 'store/
 const AvatarForm = () => {
 
   const [avatar, setAvatar] = React.useState('');
-  const user = useSelector(state => state.user);
-  const currentAvatar = useSelector(state => state.avatar);
+  const user = useSelector(state => state.userReducer.user);
+  const currentAvatar = useSelector(state => state.userReducer.avatar);
   const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
