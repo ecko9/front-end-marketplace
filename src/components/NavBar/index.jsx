@@ -19,11 +19,11 @@ const NavBar = ()  => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+        <Toolbar sx={{ display: 'flex', justifyContent: 'center', mx: "auto"}}>
+          <Typography variant="h3" component="div"  sx={{ mr: 4 }}>
             Immobills
           </Typography>
-          <Button color="inherit" onClick={handleClick}>Login</Button>
+          <Button color="inherit" onClick={handleClick} sx={{ border: 1, BorderColor: 'error.success' }} className="login-button">Login</Button>
         </Toolbar>
       </AppBar>
     </Box>
