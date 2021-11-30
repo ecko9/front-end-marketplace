@@ -16,12 +16,14 @@ const App = () => {
     () => {
       const signInWithJwt = async() =>{
         const jwt = Cookies.get('token')
-        if(jwt !== '')
+        console.log('jwt =', jwt)
+        if(jwt){
           dispatch(fetchUserRequest)
           const response = await APIManager.signInUserJwt()
           response.error ? 
             dispatch(fetchUserError(response.error)) :
             dispatch(fetchUserSignInSuccess(response)) 
+        }
       }
       signInWithJwt()
     },[dispatch]
