@@ -46,7 +46,7 @@ export default class APIManager {
     const response = await API.post('/users',
       {
         user:
-          { email, password, password_confirmation: passwordConfirmation, username, admin: true }
+          { email, password, password_confirmation: passwordConfirmation, username, admin: false }
       });
     handleJwt(response)
     return { ...response.data, status: response.status };
@@ -63,6 +63,12 @@ export default class APIManager {
     handleJwt(response)
     console.log(response)
     return {...response.data, status: response.status};
+  }
+  static async signInUserJwt(){
+    const response = await API.post('/users/sign_in')
+    handleJwt(response)
+    console.log(response)
+    return response.data
   }
 
   static async signOutUser() {
@@ -84,4 +90,11 @@ export default class APIManager {
     })
     return { ...response.data, status: response.status };
   }
+
+  static async getAllAvatars() {
+    const response = await API.get('/avatars')
+    console.log("API",response)
+    return response.data
+  }
+
 }
