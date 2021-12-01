@@ -12,7 +12,7 @@ const LoginButton = () => {
   const navigate = useNavigate()
 
   const handleClick = async() => {
-    if(Object.keys(user).length > 0) {
+    if(user.id) {
       dispatch(fetchUserRequest())
       const response = await APIManager.signOutUser()
       response.error ? 
@@ -21,13 +21,12 @@ const LoginButton = () => {
     } else {
       navigate("/login")
     }
-
   }
 
   React.useEffect(
     ()=> {
       console.log(user)
-      if(Object.keys(user).length > 0) 
+      if(user.id) 
         setBtnContent("Logout")
     },[user]
   )
