@@ -58,7 +58,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile />} exact />
+            <Route path="/profile/:id" element={<Profile />} exact />
           </Routes>
         </Router>
 
