@@ -21,17 +21,16 @@ const NavBar = ()  => {
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
-    navigate('/login')
   };
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const handleLogin = () => {
+  const navigateLogin = () => {
     navigate('/login')
   }
 
-  const userProfile = () => {
+  const navigateProfile = () => {
     navigate('/profile')
   }
 
@@ -45,10 +44,7 @@ const NavBar = ()  => {
           <Button 
             color="inherit"
             id="fade-button"
-            aria-controls="fade-menu"
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleLogin} 
+            onClick={navigateLogin} 
             sx={{ border: 1, BorderColor: 'error.success' }} 
             className="login-button">
               Login
@@ -56,9 +52,6 @@ const NavBar = ()  => {
             <Avatar
             color="inherit"
             id="fade-button"
-            aria-controls="fade-menu"
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
             sx={{ border: 1, BorderColor: 'error.success' }}
             src='../../assets/images/img-avatar.jpg'
@@ -74,7 +67,7 @@ const NavBar = ()  => {
             onClose={handleClose}
             TransitionComponent={Fade}
           >
-            <MenuItem onClick={userProfile}>Profile</MenuItem>
+            <MenuItem onClick={navigateProfile}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>Logout</MenuItem>
           </Menu>
         </Toolbar>
