@@ -121,21 +121,26 @@ function () {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return regeneratorRuntime.awrap(API.post('/users/sign_in', {
-                user: {
-                  email: email,
-                  password: password
+              return regeneratorRuntime.awrap((0, _axios.default)({
+                url: 'http://localhost:3000/users/sign_in',
+                method: 'post',
+                data: {
+                  user: {
+                    email: email,
+                    password: password
+                  }
                 }
               }));
 
             case 2:
               response = _context2.sent;
               handleJwt(response);
+              console.log(response);
               return _context2.abrupt("return", _objectSpread({}, response.data, {
                 status: response.status
               }));
 
-            case 5:
+            case 6:
             case "end":
               return _context2.stop();
           }
@@ -165,6 +170,58 @@ function () {
             case 5:
             case "end":
               return _context3.stop();
+          }
+        }
+      });
+    }
+  }, {
+    key: "showRealEstateList",
+    value: function showRealEstateList() {
+      var response;
+      return regeneratorRuntime.async(function showRealEstateList$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return regeneratorRuntime.awrap(API.get('/real_estates'));
+
+            case 2:
+              response = _context4.sent;
+              return _context4.abrupt("return", _objectSpread({}, response.data, {
+                status: response.status
+              }));
+
+            case 4:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      });
+    }
+  }, {
+    key: "uploadAvatar",
+    value: function uploadAvatar(formData) {
+      var response;
+      return regeneratorRuntime.async(function uploadAvatar$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
+              return regeneratorRuntime.awrap((0, _axios.default)({
+                url: "http://localhost:3000/avatars",
+                method: 'post',
+                data: formData
+              }));
+
+            case 2:
+              response = _context5.sent;
+              return _context5.abrupt("return", _objectSpread({}, response.data, {
+                status: response.status
+              }));
+
+            case 4:
+            case "end":
+              return _context5.stop();
           }
         }
       });

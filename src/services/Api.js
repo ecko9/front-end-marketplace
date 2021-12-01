@@ -53,13 +53,16 @@ export default class APIManager {
   }
 
   static async signInUser(email, password) {
-    const response = await API.post('/users/sign_in',
-      {
-        user:
-          { email, password }
-      });
+    const response = await axios(
+      { 
+        url: 'http://localhost:3000/users/sign_in', 
+        method: 'post',
+        data: { user: {email, password} }
+      }
+    );
     handleJwt(response)
-    return { ...response.data, status: response.status };
+    console.log(response)
+    return {...response.data, status: response.status};
   }
 
   static async signOutUser() {
