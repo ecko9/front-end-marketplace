@@ -1,7 +1,7 @@
 import axios from 'axios'
 import Cookies from 'js-cookie'
 
-const API = axios.create({ baseURL: 'https://immobilistaging.herokuapp.com' });
+const API = axios.create({ baseURL: 'http://localhost:3000' });
 
 API.interceptors.request.use(({ headers, ...config }) => ({
   ...config,
@@ -56,7 +56,7 @@ export default class APIManager {
   static async signInUser(email, password) {
     const response = await axios(
       { 
-        url: 'https://immobilistaging.herokuapp.com/users/sign_in', 
+        url: 'http://localhost:3000/users/sign_in', 
         method: 'post',
         data: { user: {email, password} }
       }
@@ -87,7 +87,7 @@ export default class APIManager {
   
   static async uploadAvatar(formData) {
     const response = await axios({
-      url: `https://immobilistaging.herokuapp.com/avatars`,
+      url: `http://localhost:3000/avatars`,
       method: 'post',
       data: formData
     })
