@@ -29,19 +29,19 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        user: action.user,
+        user: action.user.user,
       }
     case FETCH_USER_SIGN_IN_SUCCESS:
       return {
         ...state,
         loading: false,
-        user: action.user,
+        user: action.user.user,
       }
     case FETCH_USER_UPDATE_SUCCESS:
       return {
         ...state,
         loading: false,
-        user: action.user,
+        user: action.user.user,
       }
     case FETCH_USER_SIGN_OUT_SUCCESS:
       return {
