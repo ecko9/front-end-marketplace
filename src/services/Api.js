@@ -54,17 +54,17 @@ export default class APIManager {
 
   static async signInUser(email, password) {
     const response = await axios(
-      { 
-        url: 'http://localhost:3000/users/sign_in', 
+      {
+        url: 'http://localhost:3000/users/sign_in',
         method: 'post',
-        data: { user: {email, password} }
+        data: { user: { email, password } }
       }
     );
     handleJwt(response)
     console.log(response)
-    return {...response.data, status: response.status};
+    return { ...response.data, status: response.status };
   }
-  static async signInUserJwt(){
+  static async signInUserJwt() {
     const response = await API.post('/users/sign_in')
     handleJwt(response)
     console.log(response)
@@ -79,9 +79,9 @@ export default class APIManager {
 
   static async showRealEstateList() {
     const response = await API.get('/real_estates')
-    return {...response.data, status: response.status};
+    return { ...response.data, status: response.status };
   }
-  
+
   static async uploadAvatar(formData) {
     const response = await axios({
       url: `http://localhost:3000/avatars`,
@@ -91,9 +91,18 @@ export default class APIManager {
     return { ...response.data, status: response.status };
   }
 
+  static async createRealEstate(formData) {
+    const response = await axios({
+      url: `http://localhost:3000/real_estates`,
+      method: 'post',
+      data: formData
+    })
+    return { ...response.data, status: response.status };
+  }
+
   static async getAllAvatars() {
     const response = await API.get('/avatars')
-    console.log("API",response)
+    console.log("API", response)
     return response.data
   }
 
