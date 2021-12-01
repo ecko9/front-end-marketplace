@@ -2,14 +2,14 @@ import {
   FETCH_USER_REQUEST, FETCH_USER_ERROR,
   FETCH_USER_REGISTER_SUCCESS, FETCH_USER_SIGN_IN_SUCCESS,
   FETCH_USER_SIGN_OUT_SUCCESS, FETCH_USER_UPDATE_SUCCESS,
-  FETCH_USER_AVATAR_SUCCESS
+  FETCH_ALL_AVATAR_SUCCESS
 } from "./style";
 
 const initialState = {
   loading: false,
   user: {},
   error: '',
-  avatar: null
+  avatars: []
 }
 
 const userReducer = (state = initialState, action) => {
@@ -49,11 +49,11 @@ const userReducer = (state = initialState, action) => {
         loading: false,
         user: {},
       }
-    case FETCH_USER_AVATAR_SUCCESS:
+    case FETCH_ALL_AVATAR_SUCCESS:
       return {
         ...state,
         loading: false,
-        avatar: action.avatar
+        avatars: action.avatars
       }
     default:
       return state;

@@ -5,7 +5,7 @@ import Login from 'pages/Login';
 import Profile from 'pages/Profile';
 import NavBar from 'components/NavBar';
 import Cookies from 'js-cookie'
-import { fetchUserSignInSuccess, fetchUserRequest, fetchUserError } from 'store/user/actions';
+import { fetchUserSignInSuccess, fetchUserRequest, fetchUserError, fetchAllAvatarSuccess } from 'store/user/actions';
 import APIManager from 'services/Api';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -32,6 +32,18 @@ const App = () => {
     },[dispatch]
   )
 
+  React.useEffect( // setup all avatars in store
+    () => {
+      const fetchAllAvatars = async() =>{
+        dispatch(fetchUserRequest)
+        const response = await APIManager.getAllAvatars()
+        response.error ? 
+          dispatch(fetchUserError(response.error)) :
+          dispatch(fetchAllAvatarSuccess(response)) 
+      }
+      fetchAllAvatars()
+    }, [dispatch]
+  )
   return (
     <div className='App'>
       <ThemeProvider theme={theme}>

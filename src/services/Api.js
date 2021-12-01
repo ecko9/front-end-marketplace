@@ -91,4 +91,10 @@ export default class APIManager {
     return { ...response.data, status: response.status };
   }
 
+  static async getAllAvatars() {
+    const response = await API.get('/avatars')
+    console.log("API",response)
+    return response.data
+  }
+
 }
