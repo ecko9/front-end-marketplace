@@ -1,19 +1,38 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { Fade, Avatar } from '@mui/material';
+import { useSelector } from 'react-redux'
 
 
 
 
 const NavBar = ()  => {
   const navigate = useNavigate();
-  
-  function handleClick() {
+  const user = useSelector(state => state.userReducer.user)
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
     navigate('/login')
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogin = () => {
+    navigate('/login')
+  }
+
+  const userProfile = () => {
+    navigate('/profile')
   }
 
   return (
@@ -23,7 +42,41 @@ const NavBar = ()  => {
           <Typography variant="h3" component="div"  sx={{ mr: 4 }}>
             Immobills
           </Typography>
-          <Button color="inherit" onClick={handleClick} sx={{ border: 1, BorderColor: 'error.success' }} className="login-button">Login</Button>
+          <Button 
+            color="inherit"
+            id="fade-button"
+            aria-controls="fade-menu"
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleLogin} 
+            sx={{ border: 1, BorderColor: 'error.success' }} 
+            className="login-button">
+              Login
+            </Button>
+            <Avatar
+            color="inherit"
+            id="fade-button"
+            aria-controls="fade-menu"
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+            onClick={handleClick}
+            sx={{ border: 1, BorderColor: 'error.success' }}
+            src='../../assets/images/img-avatar.jpg'
+            >
+          </Avatar>
+          <Menu
+            id="fade-menu"
+            MenuListProps={{
+              'aria-labelledby': 'fade-button',
+            }}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            TransitionComponent={Fade}
+          >
+            <MenuItem onClick={userProfile}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>Logout</MenuItem>
+          </Menu>
         </Toolbar>
       </AppBar>
     </Box>
