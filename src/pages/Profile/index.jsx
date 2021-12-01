@@ -1,14 +1,14 @@
-import { Typography } from '@mui/material';
 //import AvatarForm from 'components/forms/profileForms/AvatarForm';
-import { Avatar } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import APIManager from 'services/Api'
+import ProfileInfo from 'components/ProfileInfo';
 
 const Profile = () => {
   const userStore = useSelector( state => state.userReducer)
   const [profile, setProfile] = useState({username: "", email: ""})
+  const [realEstates, setRealEstates] = useState()
   const {id} = useParams()
   
 
@@ -17,7 +17,8 @@ const Profile = () => {
       const fetchUserProfile = async() => {
         const userID = id || userStore.user.id
         const response = await APIManager.getUserProfile(userID)
-        setProfile(response)
+        setProfile(response.user)
+        setRealEstates(response.real_estates)
       }
     fetchUserProfile()
   },
@@ -28,15 +29,7 @@ const Profile = () => {
 
   return (
     <div className="Profile">
-      <h2>Profile</h2>
-      <Avatar>{profile.username}</Avatar>
-      <Typography variant="h6" component="p">
-        Username: {profile.username}
-      </Typography>
-      <Typography variant="h6" component="p">
-        Email: {profile.email}
-      </Typography>
-      {console.log("Store => ",userStore.user)}
+      <ProfileInfo profile={profile}/>
     </div> 
   );
 };
