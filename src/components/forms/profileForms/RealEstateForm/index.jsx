@@ -1,27 +1,26 @@
-import React from 'react';
-import { Box, Button, Input, Stack, TextField } from '@mui/material'
+import React, {useState} from 'react';
+import { Box, Button, Stack, TextField } from '@mui/material'
 import APIManager from 'services/Api';
+import MultipleFilesDropzone from 'components/upload/MultipleFilesDropzone';
 
 const RealEstateForm = () => {
 
-  const [name, setName] = React.useState('');
-  const [price, setPrice] = React.useState(null);
-  const [description, setDescription] = React.useState('');
-
+  const [name, setName] = useState('');
+  const [price, setPrice] = useState(null);
+  const [description, setDescription] = useState('');
+  const [uploadedFilesID, setUploadedFilesID] = useState([])
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let files = document.getElementById('upload-images').files
     const formData = new FormData();
 
-    for (let file of files)
-      formData.append('images[]', file);
     formData.append('name', name);
     formData.append('price', price);
     formData.append('sold', false);
     formData.append('description', description);
     formData.append('user_id', 2);
     formData.append('city_id', 1);
+    formData.append('image_url', uploadedFilesID)
 
     const response = await APIManager.createRealEstate(formData);
   }
@@ -48,7 +47,15 @@ const RealEstateForm = () => {
           onChange={e => setDescription(e.target.value)}
         />
 
-        <input accept="image/*" multiple type="file" id="upload-images" />
+        <Box 
+          width="50%" height="150px" align="center"
+          sx={{border: "1px dotted grey", alignSelf: "center"}} 
+        >
+        <MultipleFilesDropzone
+          setUploadedFilesID={setUploadedFilesID}
+          uploadedFilesID={uploadedFilesID}
+          />
+        </Box>
 
         <Button variant="contained" color="primary" onClick={handleSubmit}>
           Submit

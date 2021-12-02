@@ -105,6 +105,7 @@ export default class APIManager {
       method: 'post',
       data: formData
     })
+    console.log("APIManager # createRealEstate =>",response)
     return { ...response.data, status: response.status };
   }
   static async getAllAvatars() {
