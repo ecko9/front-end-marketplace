@@ -9,7 +9,7 @@ import RealEstateList from 'components/RealEstateList';
 
 const Profile = () => {
   const userStore = useSelector(state => state.userReducer)
-  const [profile, setProfile] = useState({ username: "", email: "" })
+  const [profile, setProfile] = useState({ username: "a", email: "a", img_id: "a" })
   const [realEstates, setRealEstates] = useState()
   const { id } = useParams()
 
@@ -22,11 +22,11 @@ const Profile = () => {
         setProfile(response.user)
         setRealEstates(response.real_estates)
       }
-      if(userStore.user) {
-      fetchUserProfile()
+      if (userStore.user) {
+        fetchUserProfile()
       }
-  },
-  [userStore, id]
+    },
+    [userStore, id]
   )
 
   return (
