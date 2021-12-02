@@ -4,7 +4,7 @@ import {
   FETCH_USER_SIGN_OUT_SUCCESS, FETCH_USER_UPDATE_SUCCESS,
   FETCH_USER_AVATAR_SUCCESS, FETCH_ALL_AVATAR_SUCCESS,
   FETCH_USER_PROFILE_SUCCESS
-} from "./style";
+} from "./types";
 
 export const fetchUserRequest = () => {
   return {
