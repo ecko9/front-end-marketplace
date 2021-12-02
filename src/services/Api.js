@@ -83,6 +83,12 @@ export default class APIManager {
     return { list: response.data, status: response.status };
   }
 
+  static async showRealEstate(id) {
+    const response = await API.get(`/real_estates/${id}`)
+    console.log("APIManager # showRealEstate =>", response)
+    return { ...response.data, status: response.status };
+  }
+
   static async uploadAvatar(formData) {
     const response = await axios({
       url: `http://localhost:3000/avatars`,
