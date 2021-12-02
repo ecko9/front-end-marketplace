@@ -20,7 +20,9 @@ const Profile = () => {
         setProfile(response.user)
         setRealEstates(response.real_estates)
       }
-    fetchUserProfile()
+      if(userStore.user) {
+      fetchUserProfile()
+      }
   },
   [userStore, id]
   )
