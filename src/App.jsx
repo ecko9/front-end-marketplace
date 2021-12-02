@@ -12,6 +12,7 @@ import Login from 'pages/Login';
 import Profile from 'pages/Profile';
 import NavBar from 'components/NavBar';
 import RealEstate from 'pages/RealEstate';
+import NotFound from 'pages/NotFound'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -78,6 +79,7 @@ const App = () => {
             <Route path="/profile" element={<Profile />} exact />
             <Route path="/profile/:id" element={<Profile />} exact />
             <Route path="/real_estate/:id" element={<RealEstate />} exact />
+            <Route path="*" element={<NotFound />} exact />
           </Routes>
         </Router>
 

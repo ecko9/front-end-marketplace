@@ -5,6 +5,16 @@ import { cloudName } from 'config/cloudinary.js';
 
 const ProfileInfo = ({ profile }) => {
 
+  const [username, setUsername] = React.useState('')
+
+  React.useEffect(
+    () => {
+      if (profile.username)
+        setUsername(profile.username[0])
+      return;
+    }, [profile]
+  )
+
   return (
     <Box>
       <Typography variant="h2" color="primary" component="p">
@@ -20,7 +30,8 @@ const ProfileInfo = ({ profile }) => {
               crop="scale"
             />
             :
-            <Avatar sx={{ bgcolor: "blue" }}>{profile.username[0].toUpperCase()}
+            <Avatar sx={{ bgcolor: "blue" }}>
+              {username}
             </Avatar>
         }
       </Stack>

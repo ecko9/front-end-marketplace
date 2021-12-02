@@ -1,23 +1,24 @@
-import React, {useCallback, useState} from 'react'
-import {useDropzone} from 'react-dropzone'
+import React, { useCallback, useState } from 'react'
+import { useDropzone } from 'react-dropzone'
 import { Image } from 'cloudinary-react'
 import APIManager from 'services/Api'
-import { useSelector } from 'react-redux'
-import {cloudName, uploadPreset} from 'config/cloudinary.js'
+import { useDispatch, useSelector } from 'react-redux'
+import { cloudName, uploadPreset } from 'config/cloudinary.js'
+import { fetchUserProfileSuccess } from 'store/user/actions'
 
 const FileDropzone = () => {
   const [uploadedFileID, setUploadedFileID] = useState()
-  const user = useSelector(state => state.userReducer.user) 
-  
+  const user = useSelector(state => state.userReducer.user)
+  const dispatch = useDispatch()
   const onDrop = useCallback((acceptedFiles) => {
-    
+
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
     acceptedFiles.forEach(async (file) => {
       const formData = new FormData()
       formData.append("file", file)
-      formData.append("upload_preset",uploadPreset) // Needed to upload on cloudinary
+      formData.append("upload_preset", uploadPreset) // Needed to upload on cloudinary
 
-      const response = await fetch(url,{
+      const response = await fetch(url, {
         method: 'post',
         body: formData
       })
@@ -26,20 +27,20 @@ const FileDropzone = () => {
       setUploadedFileID(data.public_id)
     })
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  const {getRootProps, getInputProps, isDragActive} = useDropzone({
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     accepts: "image/*", /* */
     multiple: false,
   })
 
   React.useEffect(
-    ()=> {
+    () => {
       if (user.id)
         APIManager.updateUserAvatar(uploadedFileID, user.id)
     },
-    [uploadedFileID,user]
+    [uploadedFileID, user]
   )
 
   return (
@@ -50,7 +51,7 @@ const FileDropzone = () => {
           <p>Drop the files here ...</p> :
           <p>Drag 'n' drop some files here, or click to select files</p>
       }
-      <Image 
+      <Image
         cloudName={cloudName}
         publicId={uploadedFileID}
         width="300"

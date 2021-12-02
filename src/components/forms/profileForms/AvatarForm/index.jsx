@@ -40,9 +40,6 @@ const AvatarForm = () => {
       <Button variant="contained" color="primary" onClick={handleSubmit}>
         Submit
       </Button>
-      {currentAvatar !== null ?
-        <img src={`http://localhost:3000${currentAvatar.url}`} alt="logo test" />
-        : ''}
     </Box>
   );
 };
