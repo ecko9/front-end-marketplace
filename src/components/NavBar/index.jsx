@@ -43,14 +43,19 @@ const NavBar = ()  => {
           <Typography variant="h3" component="div"  sx={{ mr: 4 }}>
             Immobills
           </Typography>
-          <Button 
-            color="inherit"
-            id="fade-button"
-            onClick={navigateLogin} 
-            sx={{ border: 1, BorderColor: 'error.success' }} 
-            className="login-button">
-              Login
+          {user && user.id ?
+        
+            <Button 
+              color="inherit"
+              id="fade-button"
+              onClick={navigateLogin} 
+              sx={{ border: 1, BorderColor: 'error.success' }} 
+              className="login-button">
+                Login
             </Button>
+          
+            :
+          <>
             <Avatar
             color="inherit"
             id="fade-button"
@@ -72,6 +77,8 @@ const NavBar = ()  => {
             <MenuItem onClick={navigateProfile}>Profile</MenuItem>
             <MenuItem onClick={handleClose}>Logout</MenuItem>
           </Menu>
+        </>
+        }
         </Toolbar>
       </AppBar>
     </Box>
