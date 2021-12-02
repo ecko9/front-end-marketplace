@@ -10,21 +10,21 @@ const RealEstateList = () => {
   const HandleList = async () => {
     const response = await APIManager.showRealEstateList()
     console.log(response)
-    setList(response.realEstate)
+    setList(response.data)
   }
 
-  useEffect (() => {
+  useEffect(() => {
     HandleList()
   },
-  []
+    []
   )
 
   return (
-    <>
+    <div className="RealEstateList">
       <Grid container spacing={1}>
-        {list? list.map(realEstate => <RealEstateCard realEstate={realEstate}/>) : <p>Loading... </p>}
+        {list ? list.map((realEstate, i) => <RealEstateCard realEstate={realEstate} key={i} />) : <p>Loading... </p>}
       </Grid>
-    </>
+    </div>
   );
 };
 
