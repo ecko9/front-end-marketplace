@@ -1,6 +1,6 @@
 import React from 'react';
 import { Card, CardContent } from '@mui/material';
-import FileDropZone from 'components/upload/FileDropzone/FileDropzone'
+import MultipleFilesDropZone from 'components/upload/FileDropzone'
 // import { useSelector } from 'react-redux';
 
 const AvatarUploader = () => {
@@ -13,7 +13,7 @@ const AvatarUploader = () => {
         {/* Le FileDropzone crée un dropzone (click ou drag & drop) pour ajouter des images,
           Il est enfermé dans la carte donc vous pour modifier le css de la card pour 
           en changer l'affichage*/}
-        <FileDropZone  />
+        <MultipleFilesDropZone  />
         {/* console.log("store",store) */}
       </CardContent>
     </Card>
