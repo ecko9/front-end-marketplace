@@ -71,14 +71,12 @@ export default class APIManager {
     console.log("APIManager # signInUserJwt =>", response)
     return response.data
   }
-
   static async signOutUser() {
     const response = await API.delete('/users/sign_out')
     Cookies.remove("token")
     console.log("APIManager # signOutUser =>", response)
     return { ...response.data, status: response.status };
   }
-
   static async showRealEstateList() {
     const response = await API.get('/real_estates')
     console.log("APIManager # showRealEstateList =>", response)
@@ -103,17 +101,19 @@ export default class APIManager {
     })
     return { ...response.data, status: response.status };
   }
-
   static async getAllAvatars() {
     const response = await API.get('/avatars')
     console.log("APIManager # getAllAvatar =>", response)
     return response.data
   }
-
-  static async getUserProfile(id) {
+  static async getUserProfile(id){
     const response = await API.get(`/users/${id}`)
     console.log("APIManager # getUserProfile =>", response)
     return response.data
   }
-
+  static async updateUserAvatar (fileID,userID) {
+    const response = await API.put(`/users/${userID}`, { img_id: fileID})
+    console.log("APIManager # updateUserAvatar =>", response)
+    return response.data
+  }
 }

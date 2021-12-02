@@ -21,9 +21,11 @@ const Profile = () => {
         setProfile(response.user)
         setRealEstates(response.real_estates)
       }
+      if(userStore.user) {
       fetchUserProfile()
-    },
-    [userStore, id]
+      }
+  },
+  [userStore, id]
   )
 
 
