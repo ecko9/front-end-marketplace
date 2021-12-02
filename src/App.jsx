@@ -11,6 +11,7 @@ import Home from 'pages/Home';
 import Login from 'pages/Login';
 import Profile from 'pages/Profile';
 import NavBar from 'components/NavBar';
+import RealEstate from 'pages/RealEstate';
 
 const App = () => {
   const dispatch = useDispatch()
@@ -76,6 +77,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} exact />
             <Route path="/profile/:id" element={<Profile />} exact />
+            <Route path="/real_estate/:id" element={<RealEstate />} exact />
           </Routes>
         </Router>
 
