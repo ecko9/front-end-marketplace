@@ -36,7 +36,7 @@ const Profile = () => {
       <AvatarForm />
       <ProfileInfo profile={profile} />
       <h2>New Real Estate</h2>
-      <RealEstateForm />
+      <RealEstateForm list={realEstates}/>
     </div>
   );
 };
