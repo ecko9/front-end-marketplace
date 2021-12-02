@@ -4,7 +4,8 @@ import APIManager from 'services/Api';
 import { Typography } from '@mui/material';
 
 const RealEstate = () => {
-  const initState = {
+    
+  const [data, setData] = useState({
     realEstate: {
       name: "",
       description: "",
@@ -14,9 +15,7 @@ const RealEstate = () => {
       username: "",
       email: ""
     }
-  }
-
-  const [data, setData] = useState(initState)
+  })
   const realEstateID = useParams().id
 
   const fetchRealEstate = async () => {
