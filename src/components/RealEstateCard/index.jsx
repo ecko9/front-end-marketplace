@@ -8,9 +8,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 const RealEstateCard = (props) => {
-  console.log("vnjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjoz",
-    props.realEstate
-  )
+
   return (
     <>
       <Grid item xs={3}>
