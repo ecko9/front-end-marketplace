@@ -100,12 +100,12 @@ export default class APIManager {
   }
 
   static async createRealEstate(formData) {
-    const response = await axios({
+    const response = await API({
       url: `http://localhost:3000/real_estates`,
       method: 'post',
       data: formData
     })
-    console.log("APIManager # createRealEstate =>",response)
+    console.log("APIManager # createRealEstate =>", response)
     return { ...response.data, status: response.status };
   }
   static async getAllAvatars() {

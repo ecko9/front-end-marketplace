@@ -2,14 +2,12 @@ import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { Image } from 'cloudinary-react'
 import APIManager from 'services/Api'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { cloudName, uploadPreset } from 'config/cloudinary.js'
-import { fetchUserProfileSuccess } from 'store/user/actions'
 
 const FileDropzone = () => {
   const [uploadedFileID, setUploadedFileID] = useState()
   const user = useSelector(state => state.userReducer.user)
-  const dispatch = useDispatch()
   const onDrop = useCallback((acceptedFiles) => {
 
     const url = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`
@@ -37,7 +35,7 @@ const FileDropzone = () => {
 
   React.useEffect(
     () => {
-      if (user.id)
+      if (user && user.id)
         APIManager.updateUserAvatar(uploadedFileID, user.id)
     },
     [uploadedFileID, user]
