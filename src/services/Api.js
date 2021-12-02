@@ -55,50 +55,60 @@ export default class APIManager {
 
   static async signInUser(email, password) {
     const response = await axios(
-      { 
-        url: 'http://localhost:3000/users/sign_in', 
+      {
+        url: 'http://localhost:3000/users/sign_in',
         method: 'post',
-        data: { user: {email, password} }
+        data: { user: { email, password } }
       }
     );
     handleJwt(response)
-    console.log("APIManager # signInUser =>",response)
-    return {...response.data, status: response.status};
+    console.log("APIManager # signInUser =>", response)
+    return { ...response.data, status: response.status };
   }
-  static async signInUserJwt(){
+  static async signInUserJwt() {
     const response = await API.post('/users/sign_in')
     handleJwt(response)
-    console.log("APIManager # signInUserJwt =>",response)
+    console.log("APIManager # signInUserJwt =>", response)
     return response.data
   }
   static async signOutUser() {
     const response = await API.delete('/users/sign_out')
     Cookies.remove("token")
-    console.log("APIManager # signOutUser =>",response)
+    console.log("APIManager # signOutUser =>", response)
     return { ...response.data, status: response.status };
   }
   static async showRealEstateList() {
     const response = await API.get('/real_estates')
-    console.log("APIManager # showRealEstateList =>",response)
-    return {...response.data, status: response.status};
+    console.log("APIManager # showRealEstateList =>", response)
+    return { ...response.data, status: response.status };
   }
+
   static async uploadAvatar(formData) {
     const response = await axios({
       url: `http://localhost:3000/avatars`,
       method: 'post',
       data: formData
     })
-    console.log("APIManager # uploadAvatar =>",response)
+    console.log("APIManager # uploadAvatar =>", response)
+    return { ...response.data, status: response.status };
+  }
+
+  static async createRealEstate(formData) {
+    const response = await axios({
+      url: `http://localhost:3000/real_estates`,
+      method: 'post',
+      data: formData
+    })
     return { ...response.data, status: response.status };
   }
   static async getAllAvatars() {
     const response = await API.get('/avatars')
-    console.log("APIManager # getAllAvatar =>",response)
+    console.log("APIManager # getAllAvatar =>", response)
     return response.data
   }
   static async getUserProfile(id){
     const response = await API.get(`/users/${id}`)
-    console.log("APIManager # getUserProfile =>",response)
+    console.log("APIManager # getUserProfile =>", response)
     return response.data
   }
   static async updateUserAvatar (fileID,userID) {

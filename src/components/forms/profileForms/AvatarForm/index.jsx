@@ -1,7 +1,6 @@
 import React from 'react';
 import { Box, Button, Input } from '@mui/material'
 import { useSelector } from 'react-redux';
-import axios from 'axios';
 import APIManager from 'services/Api';
 import { useDispatch } from 'react-redux';
 import { fetchUserAvatarSuccess, fetchUserError, fetchUserRequest } from 'store/user/actions';
