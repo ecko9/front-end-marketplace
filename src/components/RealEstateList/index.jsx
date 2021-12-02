@@ -4,27 +4,11 @@ import APIManager from 'services/Api';
 import RealEstateCard from 'components/RealEstateCard';
 import { Grid } from '@mui/material';
 
-const RealEstateList = () => {
-  const [list, setList] = useState(null)
-
-  const HandleList = async () => {
-    const response = await APIManager.showRealEstateList()
-    console.log(response)
-    setList(response.data)
-  }
-
-  useEffect(() => {
-    HandleList()
-  },
-    []
-  )
-
+const RealEstateList = (props) => {
   return (
-    <div className="RealEstateList">
-      <Grid container spacing={1}>
-        {list ? list.map((realEstate, i) => <RealEstateCard realEstate={realEstate} key={i} />) : <p>Loading... </p>}
-      </Grid>
-    </div>
+    <Grid container spacing={1}>
+      {props.list? props.list.map(realEstate => <RealEstateCard realEstate={realEstate}/>) : <p>Loading... </p>}
+    </Grid>
   );
 };
 
