@@ -3,13 +3,11 @@ import {useDropzone} from 'react-dropzone'
 import { Image } from 'cloudinary-react'
 import APIManager from 'services/Api'
 import { useSelector } from 'react-redux'
+import {cloudName, uploadPreset} from 'config/cloudinary.js'
 
-const cloudName = "thefinalproject"
-const uploadPreset = "qxdc6yj1"
-
-const FileDropzone = ({user}) => {
-const [uploadedFilesID, setUploadedFilesID] = useState([])
-const store = useSelector(state => state) 
+const FileDropzone = () => {
+  const [uploadedFileID, setUploadedFileID] = useState()
+  const user = useSelector(state => state.userReducer.user) 
   
   const onDrop = useCallback((acceptedFiles) => {
     
@@ -25,22 +23,24 @@ const store = useSelector(state => state)
       })
       const data = await response.json()
       console.log("DATA", data)
-      setUploadedFilesID([...uploadedFilesID, data.public_id])
+      setUploadedFileID(data.public_id)
     })
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  uploadedFilesID.forEach(async (fileID) =>{
-    APIManager.updateUserAvatar(fileID, store.userReducer.user.id)
-  }
-  )
-
-
   const {getRootProps, getInputProps, isDragActive} = useDropzone({
     onDrop,
     accepts: "image/*", /* */
     multiple: false,
   })
+
+  React.useEffect(
+    ()=> {
+      if (user.id)
+        APIManager.updateUserAvatar(uploadedFileID, user.id)
+    },
+    [uploadedFileID,user]
+  )
 
   return (
     <div {...getRootProps()}>
@@ -50,20 +50,12 @@ const store = useSelector(state => state)
           <p>Drop the files here ...</p> :
           <p>Drag 'n' drop some files here, or click to select files</p>
       }
-      {console.log("uploadedFilesID", uploadedFilesID)}
-      <ul>
-        {uploadedFilesID.map(fileID => (
-          <li key={fileID}>
-            <Image 
-              cloudName={cloudName}
-              publicId={fileID}
-              width="300"
-              crop="scale"
-            />
-          </li>
-        ))}
-      </ul>
-      
+      <Image 
+        cloudName={cloudName}
+        publicId={uploadedFileID}
+        width="300"
+        crop="scale"
+      />
     </div>
   )
 }
