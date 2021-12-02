@@ -20,7 +20,7 @@ const RealEstate = () => {
   const realEstateID = useParams().id
 
   const fetchRealEstate = async () => {
-    const response = await APIManager.getUserProfile(realEstateID)
+    const response = await APIManager.showRealEstate(realEstateID)
     console.log(response)
     setData(response)
   }
@@ -33,7 +33,7 @@ const RealEstate = () => {
 
   return (
     <div>
-      <Typography variant="h1" component="h1">
+      <Typography variant="h2" component="h1">
         {data.realEstate.name}
       </Typography>
       <Typography variant="h6" component="p">
