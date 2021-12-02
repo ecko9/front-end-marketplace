@@ -106,14 +106,19 @@ export default class APIManager {
     console.log("APIManager # getAllAvatar =>", response)
     return response.data
   }
-  static async getUserProfile(id){
+  static async getUserProfile(id) {
     const response = await API.get(`/users/${id}`)
     console.log("APIManager # getUserProfile =>", response)
     return response.data
   }
-  static async updateUserAvatar (fileID,userID) {
-    const response = await API.put(`/users/${userID}`, { img_id: fileID})
+  static async updateUserAvatar(fileID, userID) {
+    const response = await API.put(`/users/${userID}`, { img_id: fileID })
     console.log("APIManager # updateUserAvatar =>", response)
+    return response.data
+  }
+  static async getAllCities() {
+    const response = await API.get(`/cities`)
+    console.log("APIManager # getAllCities =>", response)
     return response.data
   }
 }

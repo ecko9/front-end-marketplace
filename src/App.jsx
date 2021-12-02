@@ -2,6 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Cookies from 'js-cookie'
 import { fetchUserSignInSuccess, fetchUserRequest, fetchUserError, fetchAllAvatarSuccess } from 'store/user/actions';
+import { fetchAllCitiesSuccess } from 'store/cities/action';
 import APIManager from 'services/Api';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
@@ -17,33 +18,48 @@ const App = () => {
 
   React.useEffect( // sign in user if he have a valid jwt
     () => {
-      const signInWithJwt = async() =>{
+      const signInWithJwt = async () => {
         const jwt = Cookies.get('token')
         console.log('jwt =', jwt)
-        if(jwt){
+        if (jwt) {
           dispatch(fetchUserRequest)
           const response = await APIManager.signInUserJwt()
-          response.error ? 
+          response.error ?
             dispatch(fetchUserError(response.error)) :
-            dispatch(fetchUserSignInSuccess(response)) 
+            dispatch(fetchUserSignInSuccess(response))
         }
       }
       signInWithJwt()
-    },[dispatch]
+    }, [dispatch]
   )
 
   React.useEffect( // setup all avatars in store
     () => {
-      const fetchAllAvatars = async() =>{
+      const fetchAllAvatars = async () => {
         dispatch(fetchUserRequest)
         const response = await APIManager.getAllAvatars()
-        response.error ? 
+        response.error ?
           dispatch(fetchUserError(response.error)) :
-          dispatch(fetchAllAvatarSuccess(response)) 
+          dispatch(fetchAllAvatarSuccess(response))
       }
       fetchAllAvatars()
     }, [dispatch]
   )
+
+  React.useEffect( // setup all cities in store
+    () => {
+      const fetchAllCities = async () => {
+        dispatch(fetchUserRequest)
+        const response = await APIManager.getAllCities()
+        response.error ?
+          dispatch(fetchUserError(response.error)) :
+          dispatch(fetchAllCitiesSuccess(response.data))
+      }
+      fetchAllCities()
+    }, [dispatch]
+  )
+
+
   return (
     <div className='App'>
       <ThemeProvider theme={theme}>
@@ -51,7 +67,7 @@ const App = () => {
           if you want to disable it or overwrite it in a specific component use Paper from @mui/material/paper
           Paper info => https://mui.com/components/paper/#main-content
         */}
-        <CssBaseline /> 
+        <CssBaseline />
 
         <Router>
           <NavBar />
