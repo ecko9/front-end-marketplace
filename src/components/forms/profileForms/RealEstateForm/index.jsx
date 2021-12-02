@@ -1,30 +1,21 @@
 import React from 'react';
 import { Box, Button, Input, Stack, TextField } from '@mui/material'
 import APIManager from 'services/Api';
-import { useSelector } from 'react-redux';
 
 const RealEstateForm = () => {
 
   const [name, setName] = React.useState('');
   const [price, setPrice] = React.useState(null);
   const [description, setDescription] = React.useState('');
-  const [images, setImages] = React.useState([]);
-  const user = useSelector(state => state.userReducer.user.user);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    let arrayTmp = []
     let files = document.getElementById('upload-images').files
     const formData = new FormData();
 
-    for (let file of files) {
-      arrayTmp.push(file);
+    for (let file of files)
       formData.append('images[]', file);
-    }
-
-    setImages(arrayTmp)
-
     formData.append('name', name);
     formData.append('price', price);
     formData.append('sold', false);

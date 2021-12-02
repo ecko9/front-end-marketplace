@@ -62,13 +62,8 @@ export default class APIManager {
       }
     );
     handleJwt(response)
-<<<<<<< HEAD
-    console.log(response)
+    console.log("APIManager # signInUser =>", response)
     return { ...response.data, status: response.status };
-=======
-    console.log("APIManager # signInUser =>",response)
-    return {...response.data, status: response.status};
->>>>>>> main
   }
   static async signInUserJwt() {
     const response = await API.post('/users/sign_in')
