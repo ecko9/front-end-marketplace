@@ -7,7 +7,7 @@ import { Grid } from '@mui/material';
 const RealEstateList = (props) => {
   return (
     <Grid container spacing={1}>
-      {props.list? props.list.map(realEstate => <RealEstateCard realEstate={realEstate}/>) : <p>Loading... </p>}
+      {props.list ? props.list.map((realEstate, i) => <RealEstateCard realEstate={realEstate} key={i} />) : <p>Loading... </p>}
     </Grid>
   );
 };
