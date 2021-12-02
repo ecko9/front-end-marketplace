@@ -12,7 +12,7 @@ const AvatarUploader = () => {
       <CardContent>
         {/* Le FileDropzone crée un dropzone (click ou drag & drop) pour ajouter des images,
           Il est enfermé dans la carte donc vous pour modifier le css de la card pour 
-          en changer l'affichage */}
+          en changer l'affichage*/}
         <FileDropZone  />
         {/* console.log("store",store) */}
       </CardContent>

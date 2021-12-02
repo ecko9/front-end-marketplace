@@ -61,7 +61,6 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} exact />
             <Route path="/profile/:id" element={<Profile />} exact />
-            <Route path="/upload" element={<Cloudinary />} exact/>
           </Routes>
         </Router>
 
