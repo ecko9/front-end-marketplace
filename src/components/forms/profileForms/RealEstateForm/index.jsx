@@ -29,7 +29,7 @@ const RealEstateForm = () => {
   return (
     <Box className="RealEstateForm">
       <Stack spacing={4} >
-        {console.log(images)}
+
         <TextField
           label="Name" id="name-input" type="text"
           variant="outlined" required
