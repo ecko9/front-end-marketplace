@@ -80,7 +80,7 @@ export default class APIManager {
   static async showRealEstateList() {
     const response = await API.get('/real_estates')
     console.log("APIManager # showRealEstateList =>", response)
-    return { list: response.data, status: response.status };
+    return { ...response.data, status: response.status };
   }
 
   static async showRealEstate(id) {

@@ -10,7 +10,7 @@ const Home = () => {
 
   const HandleList = async () => {
     const response = await APIManager.showRealEstateList()
-    setList(response.list)
+    setList(response.realEstate)
   }
 
   useEffect (() => {

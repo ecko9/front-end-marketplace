@@ -8,6 +8,9 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 const RealEstateCard = (props) => {
+  console.log("vnjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjjoz",
+    props.realEstate
+  )
   return (
     <>
       <Grid item xs={3}>
@@ -30,7 +33,7 @@ const RealEstateCard = (props) => {
             </Typography>
           </CardContent>
           <CardActions>
-            <Button href={`/RealEstate/${props.realEstate.id}`} size="small">Show</Button>
+            <Button href={`/real_estate/${props.realEstate.id}`} size="small">Show</Button>
             <Button size="small">Learn More</Button>
           </CardActions>
         </Card>
