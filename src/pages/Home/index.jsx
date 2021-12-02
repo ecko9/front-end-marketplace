@@ -3,14 +3,14 @@ import RealEstateList from 'components/RealEstateList'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography';
 import AvatarUploader from 'components/upload/AvatarUploader';
+import APIManager from 'services/Api';
 
 const Home = () => {
   const [list, setList] = useState(null)
 
   const HandleList = async () => {
     const response = await APIManager.showRealEstateList()
-    console.log(response)
-    setList(response.realEstate)
+    setList(response.list)
   }
 
   useEffect (() => {

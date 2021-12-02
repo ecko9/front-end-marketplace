@@ -28,8 +28,6 @@ const Profile = () => {
   [userStore, id]
   )
 
-
-
   return (
     <div className="Profile">
       <h2>Profile</h2>
